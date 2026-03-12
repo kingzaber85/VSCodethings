@@ -87,3 +87,5 @@ output_name = "anonymized_" + filename
 wb.save(output_name)
 
 print(f"\nAnonymization complete! Saved as {output_name}")
+
+# pyinstaller --onefile your_script.py

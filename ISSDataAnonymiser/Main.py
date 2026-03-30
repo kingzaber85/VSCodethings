@@ -16,10 +16,23 @@ def get_valid_column(ws, prompt_text):
         else:
             print("Column does not exist in this sheet. Try again.")
 
+def does_exist(ws, prompt_text):
+    while True:
+        response = input(prompt_text + "(y/n)").strip().upper()
+        
+        if response == ("Y"):
+            return get_valid_column(ws, "Enter the column Letter: ")
+        elif response == ("N"):
+            return None
+        else:
+            print("Please enter Y or N")
+
+        
+
 
 # ----------- USER INPUT SECTION -----------
 while True:
-    filename = input("Enter Excel file name (example: data.xlsx): ")
+    filename = input("Enter Excel file name (example: data.xlsx): ").strip()
     try:
         wb = load_workbook(filename)
         break
@@ -28,8 +41,8 @@ while True:
 ws = wb.active
 
 first_col = get_valid_column(ws, "Enter FIRST name column letter:")
-last_col = get_valid_column(ws, "Enter LAST name column letter:")
-email_col = get_valid_column(ws, "Enter EMAIL column letter:")
+last_col = does_exist(ws, "Is there a LAST name column?L (Y/N)")
+email_col = does_exist(ws, "Is there an EMAIL column?L (Y/N)")
 
 
 
@@ -37,7 +50,7 @@ email_col = get_valid_column(ws, "Enter EMAIL column letter:")
 print(f"You selected:\n File:{filename}\n First Name Column{first_col}\n Last Name Column{last_col}\n Email Column{email_col}")
 
 while True:
-    confirm = input("Proceed?(y/n)").strip().upper()
+    confirm = input("Proceed?(Y/N)").strip().upper()
     if confirm == ("Y"):
         break
     else:
